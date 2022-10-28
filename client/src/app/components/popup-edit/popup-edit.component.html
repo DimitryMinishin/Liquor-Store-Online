@@ -1,0 +1,86 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-content>
+      <div class="header">
+        <h2>Edit Product #{{ productId }}</h2>
+      </div>
+      <form
+        (ngSubmit)="onEditClicked()"
+        name="productEditDetails"
+        [formGroup]="productEditDetails"
+      >
+        <div class="name-input">
+          <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              type="text"
+              name="name"
+              required
+            />
+            <mat-error
+              *ngIf="productEditDetails.get('name').hasError('required')"
+            >
+              Name is required
+            </mat-error>
+          </mat-form-field>
+          <div class="description-input">
+            <mat-form-field class="full-width">
+              <mat-label>Description</mat-label>
+              <input
+                matInput
+                formControlName="description"
+                type="text"
+                name="description"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  productEditDetails.get('description').hasError('required')
+                "
+              >
+                Description is required
+              </mat-error>
+            </mat-form-field>
+            <div class="price-input">
+              <mat-form-field class="full-width">
+                <mat-label>Price</mat-label>
+                <input
+                  matInput
+                  formControlName="price"
+                  type="number"
+                  name="price"
+                  required
+                />
+                <mat-error
+                  *ngIf="productEditDetails.get('price').hasError('required')"
+                >
+                  Price is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="action-buttons">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!productEditDetails.valid"
+          (click)="onEditClicked()"
+        >
+          Edit
+        </button>
+        <button
+          mat-raised-button
+          class="close-btn"
+          color="warn"
+          (click)="onCloseClicked()"
+        >
+          Close
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

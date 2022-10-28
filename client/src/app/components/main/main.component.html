@@ -1,0 +1,45 @@
+<div class="wrapper">
+  <div class="search">
+
+    <div class="category-title">
+      <h2>Categories:</h2>
+    </div>
+    <div class="categories">
+      <mat-radio-group
+        color="primary"
+        [(ngModel)]="selectedCategory"
+        name="categories"
+      >
+        <mat-radio-button type="radio" value="all" checked><span>All</span></mat-radio-button>
+        <mat-radio-button type="radio" value="cognac"><span>Cognac</span></mat-radio-button>
+        <mat-radio-button type="radio" value="rum"><span>Rum & Gin</span></mat-radio-button>
+        <mat-radio-button type="radio" value="vodka"><span>Vodka</span></mat-radio-button>
+        <mat-radio-button type="radio" value="whiskey"><span>Whiskey</span></mat-radio-button>
+        <mat-radio-button type="radio" value="wine"><span>Wine</span></mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="input-search">
+      <label for="search" class="label-search">Search</label>
+      <input type="search" name="search"  [(ngModel)]="searchValue" placeholder="Search by name"/>
+      <button mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <ng-container>
+      <div
+        class="single-card"
+        *ngFor="
+          let product of products
+            | searchFilter: searchValue
+            | categorySearchFilter: selectedCategory;
+          let i = index
+        "
+        [attr.data-index]="i"
+      >
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </ng-container>
+  </div>
+</div>

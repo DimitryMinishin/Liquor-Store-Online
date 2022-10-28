@@ -1,0 +1,258 @@
+<div class="wrapper">
+  <mat-horizontal-stepper [labelPosition]="'bottom'" class="stepper">
+    <mat-step [stepControl]="userDetails">
+      <ng-template matStepLabel
+        >Personal Details <mat-icon matStepperIcon>face</mat-icon></ng-template
+      >
+
+      <form [formGroup]="userDetails">
+        <div class="first-step">
+          <mat-form-field>
+            <label for="id">Enter Your ID:</label>
+            <input
+              matInput
+              formControlName="id"
+              type="number"
+              name="id"
+              minlength="9"
+            />
+            <mat-error
+              *ngIf="userDetails.get('id').hasError('required') && id.touched"
+            >
+              ID is required
+            </mat-error>
+            <mat-error *ngIf="userDetails.get('id').hasError('minlength')">
+              ID must be 9 digits
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label for="firstName">Enter Your Name:</label>
+            <input
+              matInput
+              formControlName="firstName"
+              type="text"
+              name="firstName"
+              minlength="2"
+            />
+            <mat-error
+              *ngIf="
+                userDetails.get('firstName').hasError('required') &&
+                firstName.touched
+              "
+            >
+              Name is required
+            </mat-error>
+            <mat-error
+            *ngIf="userDetails.get('firstName').hasError('minlength')"
+            >
+              Name must be at least 3 characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label for="lastName">Enter Your Last Name:</label>
+            <input
+              matInput
+              formControlName="lastName"
+              type="text"
+              name="lastName"
+            />
+            <mat-error
+              *ngIf="
+                userDetails.get('lastName').hasError('required') &&
+                lastName.touched
+              "
+            >
+              Last Name is required
+            </mat-error>
+            <mat-error
+              *ngIf="userDetails.get('lastName').hasError('minlength')"
+            >
+              Last Name must be at least 3 characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label for="email">Enter Your email :</label>
+            <input matInput formControlName="email" type="email" name="email" />
+            <mat-error *ngIf="userDetails.get('email').hasError('required')">
+              email is required
+            </mat-error>
+            <mat-error *ngIf="userDetails.get('email').hasError('email')">
+              email is not valid
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <label for="password">Enter Your Password :</label>
+            <input
+              matInput
+              formControlName="password"
+              type="password"
+              name="password"
+              minlength="8"
+            />
+<mat-error *ngIf="userDetails.get('password').hasError('required')">
+              Password is required
+            </mat-error>
+            <mat-error
+              *ngIf="userDetails.get('password').hasError('minlength')"
+            >
+              Password must be 8 characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label for="confirmPassword">Confirm Your Password :</label>
+            <input
+              matInput
+              formControlName="confirmPassword"
+              type="password"
+              name="confirmPassword"
+              minlength="8"
+            />
+
+            <mat-error
+              *ngIf="userDetails.get('confirmPassword').hasError('required')"
+            >
+              Confirm Password is required
+            </mat-error>
+            <mat-error
+              *ngIf="userDetails.get('confirmPassword').hasError('minlength')"
+            >
+              Confirm Password must be 8 characters
+            </mat-error>
+            <mat-error
+              *ngIf="
+                userDetails.get('confirmPassword').value !=
+                userDetails.get('password').value
+              "
+            >
+              Passwords must be the same
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="addressDetails">
+      <ng-template matStepLabel
+        >Address Details
+        <mat-icon matStepperIcon>location_city</mat-icon></ng-template
+      >
+
+      <form [formGroup]="addressDetails">
+        <div class="second-step">
+          <label for="city">Enter You City</label>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Your City</mat-label>
+            <mat-select formControlName="city">
+              <mat-option *ngFor="let city of cities" [value]="city">
+                {{ city }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label for="street">Enter Your Street</label>
+            <input
+              matInput
+              formControlName="street"
+              type="text"
+              name="street"
+              minlength="3"
+            />
+
+            <mat-error
+              *ngIf="addressDetails.get('street').hasError('required')"
+            >
+              Street is required
+            </mat-error>
+            <mat-error
+              *ngIf="addressDetails.get('street').hasError('minlength')"
+            >
+              Street must be at least 3 characters
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <label for="houseNumber">Enter Your House Number:</label>
+            <input
+              matInput
+              formControlName="houseNumber"
+              type="number"
+              name="houseNumber"
+              minlength="1"
+            />
+            <mat-error
+              *ngIf="addressDetails.get('houseNumber').hasError('required')"
+            >
+              House Number is required
+            </mat-error>
+            <mat-error
+              *ngIf="addressDetails.get('houseNumber').hasError('minlength')"
+            >
+              House Number must be at least 1 character
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <label for="phone">Enter Your Phone</label>
+            <input
+              matInput
+              formControlName="phone"
+              type="phone"
+              name="phone"
+              minlength="9"
+            />
+            <mat-error *ngIf="addressDetails.get('phone').hasError('required')">
+              Phone is required
+            </mat-error>
+            <mat-error
+              *ngIf="addressDetails.get('phone').hasError('minlength')"
+            >
+              Phone must be 9 digits
+            </mat-error>
+          </mat-form-field>
+          <div class="buttons">
+            <button mat-raised-button color="primary" matStepperPrevious>
+              Previous
+            </button>
+            <button mat-raised-button color="primary" matStepperNext>
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel
+        >Finish <mat-icon matStepperIcon>thumb_up</mat-icon></ng-template
+      >
+      <div class="third-step">
+        <p><strong>Please Check Your details:</strong></p>
+        <p><strong>ID:</strong> {{ userDetails.get("id").value }}</p>
+        <p>
+          <strong>Name:</strong> {{ userDetails.get("firstName").value }}
+          {{ userDetails.get("lastName").value }}
+        </p>
+        <p><strong>email:</strong> {{ userDetails.get("email").value }}</p>
+        <p><strong>City:</strong> {{ addressDetails.get("city").value }}</p>
+        <p><strong>Street:</strong> {{ addressDetails.get("street").value }}</p>
+        <p>
+          <strong>House Number:</strong
+          >{{ addressDetails.get("houseNumber").value }}
+        </p>
+        <p><strong>Phone:</strong> {{ addressDetails.get("phone").value }}</p>
+        <div class="buttons">
+          <button matStepperPrevious mat-raised-button color="primary">
+            Previous
+          </button>
+          <button matStepperNext mat-raised-button color="primary" (click)="onSubmitClicked()">
+            Finish
+          </button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

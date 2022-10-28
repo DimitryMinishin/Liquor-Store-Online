@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-header>
+      <p>Receipt</p>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="receipt">
+        <div class="receipt-header">
+          <div class="receipt-logo">
+            <img src="assets/logo.png" alt="logo" width="50" />
+            <p class="store-name">
+              <strong><i>Liquor Store</i></strong>
+            </p>
+          </div>
+          <div class="receipt-info">
+            <p class="order-title">Your order:</p>
+            <table>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Photo</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+              <tr *ngFor="let item of products; let i = index">
+                <td style="width: 35%">{{ item.name }}</td>
+                <td style="width: 10%">{{ item.price }}$</td>
+                <td style="width: 20%">
+                  <img
+                    style="width: 30%; height: 30%"
+                    src="../../../assets/{{ item.name }}.jpg"
+                    alt=""
+                  />
+                </td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price * item.quantity }}</td>
+              </tr>
+            </table>
+            <div class="receipt-file">
+              <div>
+                <strong>Total Price: {{ grandTotal }}$</strong>
+              </div>
+            </div>
+            <div class="download-file">
+              <a [href]="fileUrl" download="file.txt" (click)="onDownloadClicked()">Download Receipt</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

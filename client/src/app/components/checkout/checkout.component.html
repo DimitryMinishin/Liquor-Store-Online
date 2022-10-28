@@ -1,0 +1,315 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-header>
+      <p>Shopping Cart</p>
+    </mat-card-header>
+    <div class="table-content" style="overflow: auto; height: 350px">
+      <table>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Photo</th>
+          <th>Quantity</th>
+          <th>Total</th>
+        </tr>
+        <tr *ngFor="let item of products; let i = index">
+          <td style="width: 35%">{{ item.name }}</td>
+          <td style="width: 10%">{{ item.price }}$</td>
+          <td style="width: 20%">
+            <img
+              style="width: 30%; height: 30%"
+              src="../../../assets/{{ item.name }}.jpg"
+              alt=""
+            />
+          </td>
+          <td style="width: 15%">
+            {{ item.quantity }}
+            </td>
+          <td style="width: 10%">{{ item.price * item.quantity }}$</td>
+
+        </tr>
+      </table>
+      <div class="total">
+        <div>
+          <strong>Total Price: {{ grandTotal }}$</strong>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <p>Checkout</p>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="content">Shipping Details</p>
+      <form [formGroup]="shippingDetails">
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="firstName"
+            type="text"
+            name="firstName"
+            minlength="2"
+            placeholder="First Name"
+            required
+          />
+          <mat-error
+            *ngIf="
+              shippingDetails.get('firstName').hasError('required') &&
+              firstName.touched
+            "
+          >
+            First Name is required
+          </mat-error>
+          <mat-error
+            *ngIf="shippingDetails.get('firstName').hasError('minlength')"
+          >
+            First Name must be at least 3 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="lastName"
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            required
+          />
+          <mat-error
+            *ngIf="
+              shippingDetails.get('lastName').hasError('required') &&
+              lastName.touched
+            "
+          >
+            Last Name is required
+          </mat-error>
+          <mat-error
+            *ngIf="shippingDetails.get('lastName').hasError('minlength')"
+          >
+            Last Name must be at least 3 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="address"
+            name="address"
+            minlength="2"
+            placeholder="Address"
+            required
+          />
+          <mat-error
+            *ngIf="
+              shippingDetails.get('address').hasError('required') &&
+              address.touched
+            "
+          >
+            Address is required
+          </mat-error>
+          <mat-error
+            *ngIf="shippingDetails.get('address').hasError('minlength')"
+          >
+            Address must be at least 2 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="city"
+            minlength="2"
+            placeholder="City"
+            required
+          />
+          <mat-error
+            *ngIf="
+              shippingDetails.get('city').hasError('required') && city.touched
+            "
+          >
+            City is required
+          </mat-error>
+          <mat-error *ngIf="shippingDetails.get('city').hasError('minlength')">
+            City must be at least 2 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="state"
+            minlength="2"
+            placeholder="State"
+            required
+          />
+          <mat-error
+            *ngIf="
+              shippingDetails.get('state').hasError('required') && state.touched
+            "
+          >
+            State is required
+          </mat-error>
+          <mat-error *ngIf="shippingDetails.get('state').hasError('minlength')">
+            State must be at least 2 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="number"
+            formControlName="zipCode"
+            min="2"
+            placeholder="Zip Code"
+            required
+          />
+          <mat-error
+            *ngIf="
+              shippingDetails.get('zipCode').hasError('required') &&
+              zipCode.touched
+            "
+          >
+            Zip Code is required
+          </mat-error>
+          <mat-error *ngIf="shippingDetails.get('zipCode').hasError('min')">
+            Zip Code must be at least 2 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="phone"
+            type="number"
+            minlength="9"
+            placeholder="Phone Number"
+            required
+          />
+          <mat-error
+            *ngIf="
+              shippingDetails.get('phone').hasError('required') && phone.touched
+            "
+            >Phone Number is required</mat-error
+          >
+          <mat-error *ngIf="shippingDetails.get('phone').hasError('minlength')"
+            >Phone Number must be at least 9 characters</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="email"
+            placeholder="Email"
+            required
+          />
+          <mat-error
+            *ngIf="
+              shippingDetails.get('email').hasError('required') && email.touched
+            "
+          >
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="shippingDetails.get('email').hasError('email')">
+            Email is not valid
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <p class="content">Payment Details</p>
+      <form [formGroup]="creditCard">
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="cardNumber"
+
+            minlength="16"
+            placeholder="Card Number"
+            required
+            [mask]="'0000 - 0000 - 0000 - 0000'"
+          />
+          <mat-error
+            *ngIf="
+              creditCard.get('cardNumber').hasError('required') &&
+              cardNumber.touched
+            "
+          >
+            Card Number is required
+          </mat-error>
+          <mat-error *ngIf="creditCard.get('cardNumber').hasError('minlength')">
+            Card Number must be at least 16 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="cardHolder"
+            minlength="2"
+            placeholder="Card Holder"
+            required
+          />
+          <mat-error
+            *ngIf="
+              creditCard.get('cardHolder').hasError('required') &&
+              cardHolder.touched
+            "
+          >
+            Card Holder is required
+          </mat-error>
+          <mat-error *ngIf="creditCard.get('cardHolder').hasError('minlength')">
+            Card Holder must be at least 2 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="number"
+            formControlName="securityCode"
+            minlength="3"
+            placeholder="Security Code"
+            required
+          />
+          <mat-error
+            *ngIf="
+              creditCard.get('securityCode').hasError('required') &&
+              securityCode.touched
+            "
+          >
+            Security Code is required
+          </mat-error>
+          <mat-error
+            *ngIf="creditCard.get('securityCode').hasError('minlength')"
+          >
+            Security Code must be at least 3 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="expirationDate"
+            placeholder="Expiration Date"
+            required
+          />
+          <mat-error
+            *ngIf="
+              creditCard.get('expirationDate').hasError('required') &&
+              expirationDate.touched
+            "
+          >
+            Expiration Date is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Choose a shipping date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="shippingDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+</form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="warn" routerLink="/main">Cancel</button>
+      <button mat-flat-button color="primary" [disabled]="shippingDetails.invalid || creditCard.invalid" (click)="onFinishClicked()">
+        Finish
+      </button>
+      </mat-card-actions>
+  </mat-card>
+</div>

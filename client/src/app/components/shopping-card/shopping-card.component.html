@@ -1,0 +1,99 @@
+<div class="wrapper">
+  <ng-container *ngIf="products.length != 0">
+    <mat-card>
+      <mat-card-title>
+        <h2>Shopping Card # {{ shoppingCartId }}</h2>
+      </mat-card-title>
+      <mat-card-content style="overflow: auto; height: 350px">
+        <table>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Photo</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Delete</th>
+          </tr>
+          <tr *ngFor="let item of products; let i = index">
+            <td style="width: 35%">{{ item.name }}</td>
+            <td style="width: 10%">{{ item.price }}$</td>
+            <td style="width: 20%">
+              <img
+                style="width: 30%; height: 30%"
+                src="../../../assets/{{
+                  item.name
+                }}.jpg"
+                alt=""
+              />
+            </td>
+            <td style="width: 25%">
+              <button
+                mat-mini-fab
+                color="primary"
+                (click)="incrementClicked(item)"
+              >
+                +
+              </button>
+              <input
+                type="text"
+                class="quantity"
+                placeholder="0"
+                value="{{ item.quantity }}"
+              />
+              <button
+                mat-mini-fab
+                color="primary"
+                (click)="decrementClicked(item)"
+              >
+                -
+              </button>
+            </td>
+            <td style="width: 10%">{{ item.price * item.quantity }}$</td>
+            <td style="width: 5%">
+              <mat-icon color="warn" (click)="onDeleteClicked(item)"
+                >delete</mat-icon
+              >
+            </td>
+          </tr>
+        </table>
+        <div class="total">
+          <div>
+            <strong>Total Price: {{ grandTotal }}$</strong>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="action-btn" mat-raised-button color="primary" routerLink="/main">
+          <mat-icon>add_shopping_cart</mat-icon>Back to Store
+        </button>
+        <button class="action-btn" mat-raised-button color="warn" (click)="onEmptyCartClicked()">
+          <mat-icon>remove_shopping_cart</mat-icon>Empty Card
+        </button>
+        <button class="action-btn" mat-raised-button color="primary" (click)="onCheckOutClicked()">
+          <mat-icon>shopping_basket</mat-icon>Checkout
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
+  <ng-container *ngIf="products.length == 0">
+    <mat-card class="empty-card">
+      <mat-card-title>
+        <h2>Shopping Card</h2>
+      </mat-card-title>
+      <mat-card-content>
+        <img
+          class="empty-cart-img"
+          src="../../../assets/Add to cart.png"
+          alt=""
+        />
+        <h3 style="padding-left: 25%">You Card Is Empty!</h3>
+      </mat-card-content>
+      <mat-card-actions>
+        <button routerLink="/main" mat-raised-button color="primary">
+          Continue Shopping
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>

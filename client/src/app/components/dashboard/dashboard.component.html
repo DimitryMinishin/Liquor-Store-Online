@@ -1,0 +1,55 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div class="left-side">
+
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()"> menu </mat-icon>
+      </button>
+      <h1>Menu</h1>
+    </div>
+    <div class="logo-image">
+      <img src="../../../assets/logo.png" alt="" />
+      <p class="logo-title">Liquor Store</p>
+    </div>
+    <h2>Welcome, <i><b>{{loginName}}</b></i></h2>
+    <div class="links">
+
+      <ul>
+        <li><a routerLink="/main">Home</a></li>
+        <li><a routerLink="/login" *ngIf="isLoggedIn == false">Log In</a></li>
+        <li><a routerLink="/logout" *ngIf="isLoggedIn == true">Log Out</a></li>
+        <li><a routerLink="/signin" *ngIf="isLoggedIn == false">Sign Up</a></li>
+      </ul>
+      <p class="cart-icon" (click)="onCartClicked()">
+        <mat-icon style="font-size: 30px" matBadge="{{itemsNumber}}" matBadgeColor="warn">shopping_cart</mat-icon>
+      </p>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/cart" routerLinkActive="active">
+        <mat-icon>shopping_bag</mat-icon>
+        <span>Shopping Cart</span>
+      </a>
+      <a mat-list-item routerLink="/checkout" routerLinkActive="active">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Check out</span>
+      </a>
+      <a mat-list-item routerLink="/settings" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </a>
+      <a mat-list-item routerLink="/about" routerLinkActive="active">
+        <mat-icon>info</mat-icon>
+        <span>About</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content" style="height: 88vh">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

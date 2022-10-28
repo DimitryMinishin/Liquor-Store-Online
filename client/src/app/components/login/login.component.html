@@ -1,0 +1,71 @@
+<div class="wrapper">
+
+<mat-card>
+  <mat-card-content>
+    <div class="header">
+      <h2>Login</h2>
+    </div>
+    <form
+      (ngSubmit)="onLoginClicked()"
+      name="userLoginDetails"
+      [formGroup]="userLoginDetails"
+    >
+      <div class="email-input">
+        <mat-form-field class="full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            type="email"
+            name="email"
+            required
+          />
+          <mat-error *ngIf="userLoginDetails.get('email').hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="userLoginDetails.get('email').hasError('email')">
+            Email is not valid
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="forgot">
+        <span class="aLink">Forgot Password?</span>
+      </div>
+      <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          name="password"
+          [type]="hide ? 'password' : 'text'"
+          minlength="8"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error
+          *ngIf="userLoginDetails.get('password').hasError('required')"
+        >
+          Password is required
+        </mat-error>
+
+      </mat-form-field>
+      <div class="login-button">
+      <button mat-flat-button color="primary">Login</button>
+    </div>
+
+    <div class="register">
+      <p>Don't have account? <a routerLink="/signin">Sign Up</a></p>
+    </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+</div>
